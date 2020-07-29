@@ -1,0 +1,25 @@
+[url "git@github.com:"]
+	insteadOf = "https://github.com/"
+[user]
+	name = Adam Buechler
+	email = butchler@gmail.com
+[pull]
+	ff = only
+[alias]
+	c = checkout
+	pushf = push --force-with-lease
+  repull = pull --rebase origin master
+  reup = !git fetch origin && git reset --hard @{upstream}
+  s = show --compact-summary -p
+  rework = "!f() { git rebase -i $(git merge-base HEAD master); }; f"
+  ri = rebase -i origin/master
+[push]
+	default = current
+[core]
+	hooksPath = /Users/adam/.git-hooks/
+  pager = diff-so-fancy | less --tabs=4 -RFX
+[color "diff-highlight"]
+	newHighlight = green reverse
+[merge]
+  # Copied from https://stackoverflow.com/a/18131595
+	conflictstyle = diff3

@@ -1,0 +1,25 @@
+{
+  "diagnostic.refreshOnInsertMode": true,
+  "tsserver": {
+    "disableAutomaticTypeAcquisition": true,
+    "trace.server": "messages"
+  },
+  "javascript": {
+    "validate": {
+      "enable": false
+    },
+    "format": {
+      "insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+    },
+    "showUnused": false
+  },
+  "typescript": {
+    "format": {
+      "insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+    },
+    "showUnused": false
+  },
+  "eslint": {
+    "filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
+  }
+}
