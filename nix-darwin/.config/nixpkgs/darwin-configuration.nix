@@ -10,7 +10,6 @@
   imports = [
     <iknow/darwin-modules>
     ((builtins.getEnv "HOME") + "/code/eikaiwa_content/nix/darwin-config.nix")
-    ./darwin-modules/direnv.nix
   ];
 
   # Configure packages to be installed. Packages can be searched by name with:
