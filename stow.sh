@@ -1,4 +1,5 @@
 #!/bin/zsh
-stow neovim
-stow git
-stow nix-darwin
+stow -v neovim
+stow -v git
+stow -v nix-darwin
+stow -v zsh
