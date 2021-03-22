@@ -67,3 +67,6 @@ set winheight=20
 
 " Don't visually wrap text
 set nowrap
+
+" Set backupcopy so webpack-dev-server/tsserver always notices file saves
+set backupcopy=yes

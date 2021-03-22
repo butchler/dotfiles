@@ -85,10 +85,7 @@ nnoremap <leader>e :Explore<CR>
 nmap ; :
 
 " Start eikaiwa projects in terminals
-command SF call termopen("tmux new-session -s FRONTEND -A \"cd ~/code/eikaiwa_content_frontend && nix-shell --command '~/code/sf; return'\"") | f FRONTEND
-command SB call termopen("tmux new-session -s BACKEND -A \"cd ~/code/eikaiwa_content && nix-shell --command '~/code/sb; return'\"") | f BACKEND
-command SR call termopen("tmux new-session -s REALTIME -A \"cd ~/code/eikaiwa-realtime && nix-shell --command '~/code/sr; return'\"") | f REALTIME
-command! -nargs=1 Term :call termopen("tmux new-session -s '<args>' -A") | file <args>
+command! -nargs=1 Term :call termopen("tmux new-session -s '<args>' -A") | file 'TMUX:<args>'
 
 " Shortcut for entering scroll mode inside a tmux window
 nnoremap <leader>s i<C-b>[
