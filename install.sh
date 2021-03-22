@@ -76,6 +76,7 @@ popd
 git clone https://github.com/iknow/eikaiwa_content ~/code/eikaiwa_content
 git clone https://github.com/iknow/eikaiwa_content_frontend ~/code/eikaiwa_content_frontend
 git clone https://github.com/iknow/eikaiwa-realtime ~/code/eikaiwa-realtime
+git clone https://github.com/iknow/branchctl.git ~/code/branchctl
 
 # nix-darwin expects to be able to replace configuration files: move them out of the way
 for i in /etc/nix/nix.conf; do
