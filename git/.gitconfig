@@ -7,12 +7,18 @@
 	ff = only
 [alias]
 	c = checkout
+  v = commit -v
+  a = commit -v --amend
 	pushf = push --force-with-lease
   repull = pull --rebase origin master
+  repulli = pull --rebase=interactive origin master
   reup = !git fetch origin && git reset --hard @{upstream}
   s = show --compact-summary -p
+  fixup = !git commit -v -m fixup && git rework
   rework = "!f() { git rebase -i $(git merge-base HEAD master); }; f"
   ri = rebase -i origin/master
+  rc = rebase --continue
+  ra = rebase --abort
 [push]
 	default = current
 [core]
