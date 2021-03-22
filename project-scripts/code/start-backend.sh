@@ -11,12 +11,7 @@ git checkout HEAD ./db/structure.sql
 echo
 echo "Reloading DB"
 echo "================================================================================"
-./tools/reload-db -s fetch
-
-echo
-echo "Fetching DB dump in background"
-echo "================================================================================"
-./tools/reload-db -o fetch | sed -e 's/^/Fetch DB: /' &
+./tools/reload-db $*
 
 echo
 echo "Starting server"
