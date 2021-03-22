@@ -1,15 +1,15 @@
 [url "git@github.com:"]
-	insteadOf = "https://github.com/"
+  insteadOf = "https://github.com/"
 [user]
-	name = Adam Buechler
-	email = butchler@gmail.com
+  name = Adam Buechler
+  email = butchler@gmail.com
 [pull]
-	ff = only
+  ff = only
 [alias]
-	c = checkout
+  c = checkout
   v = commit -v
   a = commit -v --amend
-	pushf = push --force-with-lease
+  pushf = push --force-with-lease
   repull = pull --rebase origin master
   repulli = pull --rebase=interactive origin master
   reup = !git fetch origin && git reset --hard @{upstream}
@@ -20,12 +20,12 @@
   rc = rebase --continue
   ra = rebase --abort
 [push]
-	default = current
+  default = current
 [core]
-	hooksPath = /Users/adam/.git-hooks/
+  hooksPath = /Users/adam/.git-hooks/
   pager = diff-so-fancy | less --tabs=4 -RFX
 [color "diff-highlight"]
-	newHighlight = green reverse
+  newHighlight = green reverse
 [merge]
   # Copied from https://stackoverflow.com/a/18131595
-	conflictstyle = diff3
+  conflictstyle = diff3
