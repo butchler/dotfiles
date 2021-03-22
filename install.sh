@@ -47,7 +47,11 @@ if (! test_t2_chip_present) && [ "${darwin_version%%.*}" -ge 19 ]; then
 fi
 
 # Install Nix
-yes | sh <(curl -fsSL https://nixos.org/nix/install) --daemon
+if (test_t2_chip_present); then
+    yes | sh <(curl -fsSL https://nixos.org/nix/install) --daemon --darwin-use-unencrypted-nix-store-volume
+else
+    yes | sh <(curl -fsSL https://nixos.org/nix/install) --daemon
+fi
 
 # and pull it into the current shell
 . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
