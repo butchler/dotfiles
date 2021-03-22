@@ -3,16 +3,6 @@
 set -e
 set -u
 
-#if ! [ -d "${EIKAIWA_BASEDIR:-}" ]; then
-    #echo "EIKAIWA_BASEDIR not set to a existing directory" >&2
-    #exit 1
-#fi
-
-#if ! [ -d "$EIKAIWA_BASEDIR/eikaiwa_content" ]; then
-    #echo "eikaiwa_content not checked out in EIKAIWA_BASEDIR" >&2
-    #exit 1
-#fi
-
 if ! [ "$SHELL" = "/bin/zsh" ]; then
     echo "Run this script under Apple's default /bin/zsh shell"
     exit 1
@@ -23,9 +13,16 @@ fi
 echo "Obtaining sudo:"
 sudo echo "Obtained!"
 
-# If MacOS 10.15
+test_t2_chip_present(){
+    # from create-darwin-volume.sh, returns 0 if the system has a t2 chip
+    sudo xartutil --list >/dev/null 2>/dev/null
+}
+
+# If we have MacOS 10.15 or newer and no T2 chip, we need to manually create the
+# nix volume, encrypted. If we have a T2 chip, we rely on the T2's encryption at
+# rest.
 darwin_version="$(uname -r)"
-if [ "${darwin_version%%.*}" -ge 19 ]; then
+if (! test_t2_chip_present) && [ "${darwin_version%%.*}" -ge 19 ]; then
     if ! [ -d "/nix" ]; then
         (echo 'nix'; echo -e 'run\tprivate/var/run') | sudo tee -a /etc/synthetic.conf >/dev/null
         echo "Added /nix and /run to synthetic.conf. You must now reboot and re-run this script."
@@ -50,7 +47,7 @@ if [ "${darwin_version%%.*}" -ge 19 ]; then
 fi
 
 # Install Nix
-yes | sh <(curl https://nixos.org/nix/install) --daemon
+yes | sh <(curl -fsSL https://nixos.org/nix/install) --daemon
 
 # and pull it into the current shell
 . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
@@ -61,34 +58,22 @@ nix-channel --update
 
 # builtins.fetchGit calls git from the path rather than the nix package. Ensure
 # we're using nix's git.
-#sudo nix-env -p /nix/var/nix/profiles/default -iA nixpkgs.git
 sudo nix-env -p /nix/var/nix/profiles/default -iA nixpkgs.git nixpkgs.stow
 
-git clone https://github.com/iknow/eikaiwa_content ~/code/eikaiwa_content
-git clone https://github.com/iknow/eikaiwa_content_frontend ~/code/eikaiwa_content_frontend
-git clone https://github.com/iknow/eikaiwa-realtime ~/code/eikaiwa-realtime
-
-mkdir -p ~/.config/nixpkgs
 git clone https://github.com/butchler/dotfiles ~/dotfiles
 
 pushd ~/dotfiles
 ./stow.sh
 popd
 
-# Initialize a git repository for the darwin configuration
-#pushd ~/.config/nixpkgs
-#git init .
-#git add -A
-#git commit -m 'Initial commit' --author 'Initialization <systems@iknow.jp>'
-#popd
+git clone https://github.com/iknow/eikaiwa_content ~/code/eikaiwa_content
+git clone https://github.com/iknow/eikaiwa_content_frontend ~/code/eikaiwa_content_frontend
+git clone https://github.com/iknow/eikaiwa-realtime ~/code/eikaiwa-realtime
 
-# nix-darwin expects to be able to replace several shell startup files: move them out of the way
-for i in /etc/nix/nix.conf /etc/zprofile /etc/zshrc; do
+# nix-darwin expects to be able to replace configuration files: move them out of the way
+for i in /etc/nix/nix.conf; do
     sudo mv $i $i.backup-before-nix-darwin
 done
-
-# Apple have reasonably sensible zshrc defaults: poke them into nix-darwin's chained init file.
-sudo cp /etc/zshrc.backup-before-nix /etc/zshrc.local
 
 # bashrc is a bit special because we have to care about Apple's defaults
 sudo cp /etc/bashrc.backup-before-nix /etc/bashrc

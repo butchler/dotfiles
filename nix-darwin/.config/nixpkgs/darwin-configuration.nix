@@ -7,10 +7,8 @@
   ];
 
   # Configure custom Darwin modules (service configuration).
-  # Environment variable EIKAIWA_BASEDIR must be externally defined.
   imports = [
     <iknow/darwin-modules>
-    #((builtins.getEnv "EIKAIWA_BASEDIR") + "/eikaiwa_content/nix/darwin-config.nix")
     ((builtins.getEnv "HOME") + "/code/eikaiwa_content/nix/darwin-config.nix")
     ./darwin-modules/direnv.nix
   ];
@@ -20,27 +18,32 @@
   environment.systemPackages =
     with pkgs; [
       ag
-      bundix
+      ripgrep
+      fzf
+      htop
+      jq
+      unzip
+      wget
       colordiff
       coreutils-prefixed
-      fzf
       gitAndTools.diff-so-fancy
       gitFull
       git-lfs
-      #gron
-      #httpie
-      jq
-      #ncdu
       nix-bash-completions
-      #overmind
-      phraseapp_updater
-      #pv
+      nix-zsh-completions
       rename
       rsync
-      #socat
-      #tig
       tree
-      wdiff
+      neovim
+      neovim-remote
+      tmux
+      yarn
+      nodejs
+      bundix
+      ruby
+      rubocop
+      phraseapp_updater
+      lorri
     ];
 
   # Enable Eikaiwa services (postgres, elasticsearch, kibana memcached, redis)
@@ -50,6 +53,9 @@
     # the event of a crash. Disable if storing useful data.
     postgresql.fastUnsafe = true;
   };
+
+  # Run a lorri daemon
+  services.lorri.enable = true;
 
   # Use a custom configuration.nix location. Switch to new location by running once
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin-configuration.nix
@@ -78,4 +84,17 @@
   ];
 
   nixpkgs.config = import ./config.nix;
+
+  # === Additional config ===
+
+  # Use neovim as default editor
+  environment.variables.EDITOR = "nvim";
+
+  # Disabling automatic GC because even with lorri it seems like it might be
+  # deleting things that are still being used by the project shell.nix files.
+  #nix.gc = {
+    #automatic = true;
+    #interval = { Weekday = 1; Hour = 3; Minute = 15; };
+    #options = "--delete-older-than 14d";
+  #};
 }
