@@ -85,3 +85,7 @@ let g:splitjoin_trailing_comma=1
 """ BufExplorer
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
 let g:bufExplorerSplitOutPathName=0  " Don't split the path and file name.
+
+""" vim-polyglot
+" Disable vim-json's concealing for performance
+let g:vim_json_syntax_conceal = 0
