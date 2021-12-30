@@ -15,7 +15,7 @@
   reup = !git fetch origin && git reset --hard @{upstream}
   s = show --compact-summary -p
   fixup = !git commit -v -m fixup && git rework
-  rework = "!f() { git rebase -i $(git merge-base HEAD master); }; f"
+  rework = "!f() { git rebase -i $(git merge-base HEAD origin/master); }; f"
   ri = rebase -i origin/master
   rc = rebase --continue
   ra = rebase --abort
@@ -24,6 +24,8 @@
 [core]
   hooksPath = /Users/adam/.git-hooks/
   pager = diff-so-fancy | less --tabs=4 -RFX
+[interactive]
+  diffFilter = diff-so-fancy --patch
 [color "diff-highlight"]
   newHighlight = green reverse
 [merge]

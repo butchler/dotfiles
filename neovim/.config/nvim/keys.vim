@@ -34,6 +34,10 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap <Tab> <C-w>w
 nnoremap <S-Tab> <C-w>W
 
+" Remap <C-i>/<Tab> (move forward in jumplist, the opposite of <C-o>) because
+" we are using <Tab> for something else
+nnoremap <C-n> <C-i>
+
 " Alias uppercase mistypings
 command W w
 command Wq wq
@@ -68,7 +72,7 @@ nnoremap <leader>cp :let @* = expand("%")<CR>
 command Ghistory Glog -- %
 
 " Open status window on left side
-nnoremap <leader>gs :Gstatus<CR><C-w>H
+nnoremap <leader>gs :Git<CR><C-w>H
 
 " Make all windows same size
 nnoremap <leader>= <C-w>=
@@ -82,10 +86,15 @@ nnoremap <leader>u /\u<CR>
 nnoremap <leader>e :Explore<CR>
 "nnoremap <leader>e :e .<CR>
 
+function SimpleSplitLines()
+  s@(@(\r@e
+  s@|||\|&&\|,@\0\r@ge
+  s@\(.*\))@\1\r)@e
+endfunction
+
+nnoremap <leader>s :call SimpleSplitLines()<CR>
+
 nmap ; :
 
 " Start eikaiwa projects in terminals
 command! -nargs=1 Term :call termopen("tmux new-session -s '<args>' -A") | file 'TMUX:<args>'
-
-" Shortcut for entering scroll mode inside a tmux window
-nnoremap <leader>s i<C-b>[

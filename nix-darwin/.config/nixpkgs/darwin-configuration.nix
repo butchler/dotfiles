@@ -43,6 +43,9 @@
       rubocop
       phraseapp_updater
       lorri
+      #cloc
+      #qpdf
+      alacritty
     ];
 
   # Enable Eikaiwa services (postgres, elasticsearch, kibana memcached, redis)
@@ -96,4 +99,25 @@
     #interval = { Weekday = 1; Hour = 3; Minute = 15; };
     #options = "--delete-older-than 14d";
   #};
+
+  # Local DNS server for testing local frontend on mobile devices:
+  # https://github.com/iknow/wiki/wiki/Setting-up-dnsmasq-to-access-dev-environment-from-other-devices
+  services.dnsmasq = {
+    enable = true;
+    bind = "0.0.0.0";
+  };
+
+  environment.etc."dnsmasq.conf" = {
+    text = ''
+      domain-needed
+      bogus-priv
+
+      no-resolv
+
+      server = 1.1.1.1
+      server = 1.0.0.1
+
+      address=/devdomain.name/192.168.0.160
+    '';
+  };
 }

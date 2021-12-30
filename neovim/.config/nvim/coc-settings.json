@@ -11,11 +11,19 @@
     "format": {
       "insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
     },
+    "preferences": {
+      "importModuleSpecifier": "non-relative",
+      "quoteStyle": "single"
+    },
     "showUnused": false
   },
   "typescript": {
     "format": {
       "insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+    },
+    "preferences": {
+      "importModuleSpecifier": "non-relative",
+      "quoteStyle": "single"
     },
     "showUnused": false
   },
