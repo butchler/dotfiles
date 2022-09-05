@@ -3,6 +3,9 @@
 set -e
 set -u
 
+# Don't use nvim because it might not be installed yet
+export EDITOR="vi"
+
 if ! [ "$SHELL" = "/bin/zsh" ]; then
     echo "Run this script under Apple's default /bin/zsh shell"
     exit 1
