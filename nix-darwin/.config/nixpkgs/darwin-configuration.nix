@@ -45,6 +45,7 @@
       lorri
       #cloc
       #qpdf
+      #xpdf
       alacritty
     ];
 

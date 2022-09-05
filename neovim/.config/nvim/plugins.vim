@@ -34,14 +34,12 @@ nnoremap \ :Ack!<Space>
 
 """ coc.nvim
 " Completion
-" Use tab/shift-tab to cycle completion suggestions
-inoremap <expr><Tab>  pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Confirm completion on enter
-" This is needed to trigger effects like auto imports
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Based on `:help coc-completion-example`
+" Use <tab> and <S-tab> to navigate completion list
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1): "\<Tab>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" Use <CR> to confirm completion
+inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
 " if hidden is not set, TextEdit might fail.
 set hidden

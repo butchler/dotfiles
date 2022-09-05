@@ -70,3 +70,79 @@ set nowrap
 
 " Set backupcopy so webpack-dev-server/tsserver always notices file saves
 set backupcopy=yes
+
+" Copied from https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
+" Mainly for `:Redir hi` to make debugging highlights less painful
+function! Redir(cmd, rng, start, end)
+	for win in range(1, winnr('$'))
+		if getwinvar(win, 'scratch')
+			execute win . 'windo close'
+		endif
+	endfor
+	if a:cmd =~ '^!'
+		let cmd = a:cmd =~' %'
+			\ ? matchstr(substitute(a:cmd, ' %', ' ' . expand('%:p'), ''), '^!\zs.*')
+			\ : matchstr(a:cmd, '^!\zs.*')
+		if a:rng == 0
+			let output = systemlist(cmd)
+		else
+			let joined_lines = join(getline(a:start, a:end), '\n')
+			let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
+			let output = systemlist(cmd . " <<< $" . cleaned_lines)
+		endif
+	else
+		redir => output
+		execute a:cmd
+		redir END
+		let output = split(output, "\n")
+	endif
+	vnew
+	let w:scratch = 1
+	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+	call setline(1, output)
+endfunction
+
+command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
+
+" Custom minimal tabline with no buffer names, only number fo windows
+" Based on :help setting-tabline
+set tabline=%!MyTabLine()
+
+function MyTabLine()
+  let s = ' '
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (i + 1) . 'T'
+
+    let tablabel = MyTabLabel(i + 1, i + 1 == tabpagenr())
+
+    " the label is made by MyTabLabel()
+    if i + 1 == tabpagenr()
+      let s .= '[' . tablabel . ']'
+    else
+      let s .= ' ' . tablabel . ' '
+    endif
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s .= '%#TabLineFill#%T'
+
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s .= '%=%#TabLine#%999X[x]'
+  endif
+
+  return s
+endfunction
+
+function MyTabLabel(n, isselected)
+  let numwindows = tabpagewinnr(a:n, '$')
+  return numwindows
+endfunction

@@ -59,10 +59,6 @@ vnoremap / y/<C-R>"<CR>
 " Toggle folds with backspace
 nnoremap <Backspace> za
 
-" Inserts relative path of current file's folder
-" Based on http://vim.wikia.com/wiki/Insert_current_filename
-inoremap <leader>fd <C-R>=expand("%:h")<CR>
-
 " Yank current file path
 " Based on https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
 nnoremap <leader>cp :let @* = expand("%")<CR>
@@ -86,15 +82,10 @@ nnoremap <leader>u /\u<CR>
 nnoremap <leader>e :Explore<CR>
 "nnoremap <leader>e :e .<CR>
 
-function SimpleSplitLines()
-  s@(@(\r@e
-  s@|||\|&&\|,@\0\r@ge
-  s@\(.*\))@\1\r)@e
-endfunction
-
-nnoremap <leader>s :call SimpleSplitLines()<CR>
+command! -nargs=1 S :s/<args>\+/\0\r/g
 
 nmap ; :
 
-" Start eikaiwa projects in terminals
+" Start tmux sessions in terminals
 command! -nargs=1 Term :call termopen("tmux new-session -s '<args>' -A") | file 'TMUX:<args>'
+command! Tmux :call termopen("tmux")

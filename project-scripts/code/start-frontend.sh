@@ -40,4 +40,5 @@ echo "Starting server"
 echo "================================================================================"
 # Increase node memory limit to 4GB to reduce rate of crashes
 export NODE_OPTIONS=--max-old-space-size=4096
+export EIKAIWA_ESBUILD=1
 yarn start $*

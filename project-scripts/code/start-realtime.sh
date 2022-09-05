@@ -20,6 +20,16 @@ echo "Regenerating configs"
 echo "================================================================================"
 yarn generate:config -o
 
+echo
+echo "Waiting for backend"
+echo "================================================================================"
+waitForPort 3001
+
+echo
+echo "Creating DB and running migrations"
+echo "================================================================================"
+yarn db:init
+
 #echo
 #echo "Purging"
 #echo "================================================================================"
@@ -29,11 +39,6 @@ echo
 echo "Resetting Redis"
 echo "================================================================================"
 redis-cli flushdb
-
-echo
-echo "Waiting for backend"
-echo "================================================================================"
-waitForPort 3001
 
 echo
 echo "Starting server"
