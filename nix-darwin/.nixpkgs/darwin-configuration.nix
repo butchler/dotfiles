@@ -62,8 +62,8 @@
   services.lorri.enable = true;
 
   # Use a custom configuration.nix location. Switch to new location by running once
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin-configuration.nix
-  environment.darwinConfig = "$HOME/.config/nixpkgs/darwin-configuration.nix";
+  # $ darwin-rebuild switch -I darwin-config=$HOME/.nixpkgs/darwin-configuration.nix
+  environment.darwinConfig = "$HOME/.nixpkgs/darwin-configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

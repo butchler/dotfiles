@@ -94,7 +94,7 @@ sudo sh -c "echo 'if test -e /etc/static/bashrc; then . /etc/static/bashrc; fi' 
 
 # install nix-darwin
 nixpkgs="$(nix-instantiate --find-file nixpkgs)"
-export NIX_PATH="nixpkgs=$nixpkgs:darwin-config=$HOME/.config/nixpkgs/darwin-configuration.nix"
+export NIX_PATH="nixpkgs=$nixpkgs:darwin-config=$HOME/nixpkgs/darwin-configuration.nix"
 export NIX_BUILD_CORES=0
 export NIX_MAX_JOBS=8
 yes | nix --extra-experimental-features 'nix-command' \
