@@ -76,6 +76,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 popd
 
+mkdir ~/code
 git clone https://github.com/iknow/eikaiwa_content ~/code/eikaiwa_content
 git clone https://github.com/iknow/eikaiwa_content_frontend ~/code/eikaiwa_content_frontend
 git clone https://github.com/iknow/eikaiwa-realtime ~/code/eikaiwa-realtime
