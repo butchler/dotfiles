@@ -16,7 +16,7 @@
   # $ nix-env -qaP | grep <packagename>
   environment.systemPackages =
     with pkgs; [
-      ag
+      silver-searcher
       ripgrep
       fzf
       htop
