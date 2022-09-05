@@ -47,6 +47,7 @@
       #qpdf
       #xpdf
       alacritty
+      stow
     ];
 
   # Enable Eikaiwa services (postgres, elasticsearch, kibana memcached, redis)
