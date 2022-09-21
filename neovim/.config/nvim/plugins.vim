@@ -4,7 +4,6 @@
 "       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'lifepillar/vim-solarized8'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-unimpaired'
 Plug 'bronson/vim-trailing-whitespace'
