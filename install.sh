@@ -141,7 +141,4 @@ nix-channel --update nixpkgs
 sudo rm /nix/var/nix/profiles/default
 sudo rm /nix/var/nix/profiles/default-*-link
 
-echo "Running darwin-rebuild switch"
-sudo darwin-rebuild switch
-
-echo "All done! Now close this terminal."
+echo "All done! Now open a new terminal and run 'darwin-rebuild switch'."
