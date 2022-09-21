@@ -11,7 +11,7 @@ git checkout HEAD ./db/structure.sql
 echo
 echo "Reloading DB"
 echo "================================================================================"
-./tools/reload-db -s fetch $*
+./tools/reload-db -s fetch -s annotate -s structure $*
 
 echo
 echo "Starting server"
