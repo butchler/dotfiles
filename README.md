@@ -12,5 +12,5 @@
   - Add Alt-H and Alt-L keyboard shortcuts for workspace navigation
   - Map caps lock to escape key
   - Increase key repeat rate and reduce repeat delay
-  - Disable "Show recente applications in Dock"
+  - Disable "Show recent applications in Dock"
 - Set up iKnow VPN: https://github.com/iknow/wiki/wiki/vpn-access
