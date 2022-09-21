@@ -1,7 +1,7 @@
 {
   "diagnostic.refreshOnInsertMode": true,
   "suggest.noselect": true,
-  "list.source.files.args": ["--hidden", "--files"],
+  "list.source.files.args": ["--hidden", "--files", "-g", "!**/.git/*"],
   "tsserver": {
     "disableAutomaticTypeAcquisition": true,
     "trace.server": "messages"

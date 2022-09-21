@@ -21,7 +21,7 @@ call plug#end()
 
 """ Ack/ag
 if executable('ag') " Use ag for Ack
-  let g:ackprg = 'ag --nogroup --nocolor --column --hidden'
+  let g:ackprg = 'ag --nogroup --nocolor --column --hidden --ignore .git/'
 endif
 
 " bind K to grep word under cursor, case-sensitive
