@@ -1,6 +1,7 @@
 {
   "diagnostic.refreshOnInsertMode": true,
   "suggest.noselect": true,
+  "list.source.files.args": ["--hidden", "--files"],
   "tsserver": {
     "disableAutomaticTypeAcquisition": true,
     "trace.server": "messages"
