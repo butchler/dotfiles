@@ -19,7 +19,7 @@ sudo echo "Obtained!"
 if ! [ -f "~/.ssh/config" ]; then
     ssh-keygen -t ed25519 -C "butchler@gmail.com"
     eval "$(ssh-agent -s)"
-    cat << EOF
+    cat << EOF > ~/.ssh/config
 Host *
   IgnoreUnknown UseKeychain
   AddKeysToAgent yes
