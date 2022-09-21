@@ -16,6 +16,24 @@ fi
 echo "Obtaining sudo:"
 sudo echo "Obtained!"
 
+if ! [ -f "~/.ssh/config" ]; then
+    ssh-keygen -t ed25519 -C "butchler@gmail.com"
+    eval "$(ssh-agent -s)"
+    cat << EOF
+Host *
+  IgnoreUnknown UseKeychain
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    pbcopy < ~/.ssh/id_ed25519.pub
+    echo "SSH key copied to clipboard"
+    echo "Go to GitHub Settings > SSH and GPG keys > New SSH key and add key to account"
+    echo "Press any key to continue..."
+    read -k1 -s
+fi
+
 test_t2_chip_present(){
     # from create-darwin-volume.sh, returns 0 if the system has a t2 chip
     sudo xartutil --list >/dev/null 2>/dev/null
