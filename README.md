@@ -14,4 +14,6 @@
   - Map caps lock to escape key
   - Increase key repeat rate and reduce repeat delay
   - Disable "Show recent applications in Dock"
+  - Disable "Automatically rearrange spaces based on most recent use"
+  - Disable ProMotion refresh rate because it currently makes the animation for switching between spaces very slow
 - Add Alacritty nix application to Dock
