@@ -20,10 +20,10 @@ echo "Cleaning files"
 echo "================================================================================"
 yarn build:clean
 
-echo
-echo "Regenerating configs"
-echo "================================================================================"
-yarn run generate:config
+#echo
+#echo "Regenerating configs"
+#echo "================================================================================"
+#yarn run generate:config
 
 #echo
 #echo "Waiting for backend"
