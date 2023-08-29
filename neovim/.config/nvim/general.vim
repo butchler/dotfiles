@@ -35,10 +35,15 @@ set incsearch
 " Make sure that there are lines above/below the cursor.
 set scrolloff=5
 
+" Jump many characters at once when scrolling horizontally. Only used when
+" wrapping is disabled.
+set sidescroll=20
+
+" When wrapping is enabled, don't wrap in the middle of a word.
+set linebreak
+
 " Automatically wrap after 100 columns.
 " Can disable with :set tw=0
-"set textwidth=100
-"set textwidth=120
 set textwidth=80
 
 " Open git commit editor in new split instead of nested nvim
@@ -60,9 +65,9 @@ set suffixesadd=.svg,.json,.ts,.tsx,.js
 
 " Automatically make windows same size
 autocmd WinEnter * wincmd =
-" But also make sure windows are at least as wide as our textwidth
-" TODO: Figure out how to set winwidth to the value of textwidth
-set winwidth=120
+" But also make sure windows are at least as wide as our textwidth, plus extra
+" space for the error/warning column.
+set winwidth=122
 set winheight=20
 
 " Don't visually wrap text

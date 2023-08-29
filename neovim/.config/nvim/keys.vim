@@ -65,7 +65,7 @@ nnoremap <leader>cp :let @* = expand("%")<CR>
 
 """ Fugitive
 " Load commits that touched current file into quickfix window
-command Ghistory Glog -- %
+command Ghistory Git log -- %
 
 " Open status window on left side
 nnoremap <leader>gs :Git<CR><C-w>H
@@ -89,3 +89,7 @@ nmap ; :
 " Start tmux sessions in terminals
 command! -nargs=1 Term :call termopen("tmux new-session -s '<args>' -A") | file 'TMUX:<args>'
 command! Tmux :call termopen("tmux")
+
+" Commands to turn text wrapping on/off
+command Wrap set textwidth=0 | set wrap
+command Nowrap set textwidth=80 | set nowrap

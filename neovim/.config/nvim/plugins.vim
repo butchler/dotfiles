@@ -16,8 +16,14 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-tsserver coc-eslint coc-lists' }
 Plug 'mileszs/ack.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
+
+""" fzf.vim
+" Map Ctrl-P to fzf
+nnoremap <silent> <C-p> :FZF<CR>
 
 """ Ack/ag
 if executable('ag') " Use ag for Ack
@@ -43,7 +49,7 @@ inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 " if hidden is not set, TextEdit might fail.
 set hidden
 " Map Ctrl-P to coc-lists
-nnoremap <C-p> :CocList files<CR>
+"nnoremap <C-p> :CocList files<CR>
 
 " Reduce delay until floating diagnostic windows are shown
 set updatetime=300

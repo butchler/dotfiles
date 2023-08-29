@@ -12,8 +12,11 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 source $HOME/.config/nvim/github-nofrils.vim
 
-command Light call NofrilsLight()
-command Dark call NofrilsDark()
+"command Light call NofrilsLight()
+"command Dark call NofrilsDark()
+command Light colorscheme github-nofrils-light
+command Dark colorscheme github-nofrils-dark
 
 " Default to light mode
-call NofrilsLight()
+"call NofrilsLight()
+colorscheme github-nofrils-light
