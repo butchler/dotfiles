@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # Configure nixpkgs overlays (additional software packages)
-  nixpkgs.overlays = [
-    (import ./overlays/packages.nix)
-  ];
-
   # Configure custom Darwin modules (service configuration).
   imports = [
     <iknow/darwin-modules>
@@ -21,6 +16,7 @@
       fzf
       htop
       jq
+      yq
       unzip
       wget
       colordiff
@@ -48,18 +44,8 @@
       #xpdf
       alacritty
       stow
+      watchman
     ];
-
-  # Enable Eikaiwa services (postgres, elasticsearch, kibana memcached, redis)
-  eikaiwa.services = {
-    enable = true;
-    # Configure PostgreSQL to run faster but with less safety in
-    # the event of a crash. Disable if storing useful data.
-    postgresql.fastUnsafe = true;
-  };
-
-  # Run a lorri daemon
-  services.lorri.enable = true;
 
   # Use a custom configuration.nix location. Switch to new location by running once
   # $ darwin-rebuild switch -I darwin-config=$HOME/.nixpkgs/darwin-configuration.nix
@@ -93,14 +79,6 @@
 
   # Use neovim as default editor
   environment.variables.EDITOR = "nvim";
-
-  # Disabling automatic GC because even with lorri it seems like it might be
-  # deleting things that are still being used by the project shell.nix files.
-  #nix.gc = {
-    #automatic = true;
-    #interval = { Weekday = 1; Hour = 3; Minute = 15; };
-    #options = "--delete-older-than 14d";
-  #};
 
   # Local DNS server for testing local frontend on mobile devices:
   # https://github.com/iknow/wiki/wiki/Setting-up-dnsmasq-to-access-dev-environment-from-other-devices
