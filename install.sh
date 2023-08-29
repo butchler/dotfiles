@@ -102,6 +102,7 @@ git clone https://github.com/iknow/eikaiwa-realtime ~/code/eikaiwa-realtime
 git clone https://github.com/iknow/branchctl.git ~/code/branchctl
 git clone https://github.com/iknow/engoojs.git ~/code/engoojs
 git clone https://github.com/iknow/realtime-webrtc-cpp.git ~/code/realtime-webrtc-cpp
+git clone https://github.com/iknow/replace-runner.git ~/code/replace-runner
 
 # nix-darwin expects to be able to replace configuration files: move them out of the way
 for i in /etc/nix/nix.conf; do
