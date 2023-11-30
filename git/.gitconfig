@@ -7,16 +7,17 @@
   ff = only
 [alias]
   c = checkout
+  fc = "!f() { git fetch origin $1; git checkout $1; }; f"
   v = commit -v
   a = commit -v --amend
   pushf = push --force-with-lease
-  repull = pull --rebase origin master
-  repulli = pull --rebase=interactive origin master
-  reup = !git fetch origin && git reset --hard @{upstream}
+  repull = pull --rebase origin HEAD
+  repulli = pull --rebase=interactive origin HEAD
+  reup = "!branch=$(git rev-parse --abbrev-ref HEAD); git fetch origin $branch && git reset --hard @{upstream}"
   s = show --compact-summary -p
-  fixup = !git commit -v -m fixup && git rework
-  rework = "!f() { git rebase -i $(git merge-base HEAD origin/master); }; f"
-  ri = rebase -i origin/master
+  m = commit -m
+  rework = "!f() { git rebase -i $(git merge-base HEAD FETCH_HEAD); }; f"
+  ri = rebase -i origin/HEAD
   rc = rebase --continue
   ra = rebase --abort
 [push]

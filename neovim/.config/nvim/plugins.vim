@@ -22,18 +22,28 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 """ fzf.vim
+" Use ripgrep for fzf
+if executable('rg')
+  " Search hidden files but don't search .git/
+  let $FZF_DEFAULT_COMMAND = "rg --hidden -g '!.git/' --files"
+end
 " Map Ctrl-P to fzf
-nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <C-p> :Files<CR>
+" Map Ctrl-B to fzf with open buffers
+nnoremap <silent> <C-b> :Buffers<CR>
 
 """ Ack/ag
-if executable('ag') " Use ag for Ack
-  let g:ackprg = 'ag --nogroup --nocolor --column --hidden --ignore .git/'
+" Use ripgrep for Ack
+if executable('rg')
+  " Search hidden files but not .git/, and use smartcase
+  let g:ackprg = "rg --hidden -g '!.git/' --vimgrep --smart-case"
 endif
 
 " bind K to grep word under cursor, case-sensitive
 nnoremap K :Ack! -w "<C-r><C-w>"<CR>
 " Same as above, but using visual selection.
-vnoremap K y:Ack! <C-r>"<CR>
+" Also does not automatically search, to allow the query to be altered.
+vnoremap K y:Ack! <C-r>"
 " bind \ to start :Ag command
 nnoremap \ :Ack!<Space>
 
