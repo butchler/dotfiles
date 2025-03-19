@@ -43,11 +43,14 @@ command W w
 command Wq wq
 command Q q
 
-" Clear highlights
+" Clear highlights and close quickfix
 "nnoremap <C-c> :noh<CR>
-nnoremap <Esc> :noh<CR>
+nnoremap <Esc> :noh<CR>:cclose<CR>
 " Work around TypeScript type error signs getting stuck for some reason
 "nnoremap <Esc> :noh<CR>:sign unplace *<CR>
+
+" ,o to open quickfix and return focus to current window
+nnoremap <leader>o :botright copen<CR><C-w>p
 
 " ,/ to toggle comments
 map <leader>/ <plug>NERDCommenterToggle
@@ -88,8 +91,22 @@ nmap ; :
 
 " Start tmux sessions in terminals
 command! -nargs=1 Term :call termopen("tmux new-session -s '<args>' -A") | file 'TMUX:<args>'
-command! Tmux :call termopen("tmux")
+"command! Tmux :call termopen("tmux")
 
 " Commands to turn text wrapping on/off
 command Wrap set textwidth=0 | set wrap
 command Nowrap set textwidth=80 | set nowrap
+
+" Format file with formatter.nvim
+" Copied from https://github.com/mhartington/formatter.nvim?tab=readme-ov-file#map-keys
+nnoremap <leader>f :FormatWrite<CR>
+
+" Inspired by vim-unimpaired
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+
+" Based on https://www.reddit.com/r/vim/comments/7dv9as/how_to_edit_the_vim_quickfix_list/
+command SetQuickFix setlocal errorformat=%f\|%l\ col\ %c\|%m | cgetbuffer
+command SetQuickFixFilesOnly setlocal errorformat=%f | cgetbuffer
+command SetQuickFixLinesOnly setlocal errorformat=%f:%l | cgetbuffer
+"command SetQuickFixLinesSelection setlocal errorformat=%f:%l | '<,'>cgetbuffer

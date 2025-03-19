@@ -49,9 +49,10 @@ exe 'hi Type            guifg='s:fg2'                              gui=italic'
 exe 'hi Underlined                                                 gui=underline'
 exe 'hi htmlLink        guifg='s:fgLinkBlue'                       gui=underline'
 exe 'hi CursorLine                            guibg='s:bg2
+exe 'hi Pmenu                                 guibg='s:bg2
 exe 'hi CursorLineNr                          guibg='s:bg2'        gui=bold'
-exe 'hi CocErrorSign    guifg='s:red'         guibg='s:bg2
-exe 'hi CocWarningSign  guifg='s:orange'      guibg='s:bg2
+"exe 'hi CocErrorSign    guifg='s:red'         guibg='s:bg2
+"exe 'hi CocWarningSign  guifg='s:orange'      guibg='s:bg2
 exe 'hi VertSplit       guifg='s:fg'          guibg='s:bg
 exe 'hi StatusLine      guifg='s:fg'          guibg='s:bg3'        gui=bold'
 exe 'hi StatusLineNC    guifg='s:fg'          guibg='s:bg2'        gui=bold'
@@ -112,12 +113,13 @@ hi! link ColorColumn CursorLine
 hi! link LineNr CursorLine
 hi! link SignColumn LineNr
 hi! link FoldColumn LineNr
-hi! link Pmenu CursorLine
-hi! link CocMenuSel PmenuSel
-hi! link CocInfoSign CursorLine
-hi! link CocHintSign CocInfoSign
-hi! link CocListLine CursorLine
-hi! link CocListSearch Search
+"hi! link Pmenu CursorLine
+"hi! link CocMenuSel PmenuSel
+"hi! link CocInfoSign CursorLine
+"hi! link CocHintSign CocInfoSign
+"hi! link CocListLine CursorLine
+"hi! link CocListSearch Search
+hi! link DiagnosticHint Type
 
 hi! link MatchParen StatusLine
 

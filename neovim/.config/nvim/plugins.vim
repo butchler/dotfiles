@@ -5,7 +5,7 @@
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-unimpaired'
+"Plug 'tpope/vim-unimpaired'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -14,10 +14,20 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-tsserver coc-eslint coc-lists' }
+"Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-tsserver coc-eslint coc-lists' }
+Plug 'neovim/nvim-lspconfig'
+
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'mhartington/formatter.nvim'
+Plug 'lbrayner/vim-rzip'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 call plug#end()
 
@@ -35,8 +45,8 @@ nnoremap <silent> <C-b> :Buffers<CR>
 """ Ack/ag
 " Use ripgrep for Ack
 if executable('rg')
-  " Search hidden files but not .git/, and use smartcase
-  let g:ackprg = "rg --hidden -g '!.git/' --vimgrep --smart-case"
+  " Search hidden files but not .git/, and use smartcase, and sort so order is consistent across runs
+  let g:ackprg = "rg --hidden -g '!.git/' --vimgrep --smart-case --sort=path"
 endif
 
 " bind K to grep word under cursor, case-sensitive
@@ -46,44 +56,6 @@ nnoremap K :Ack! -w "<C-r><C-w>"<CR>
 vnoremap K y:Ack! <C-r>"
 " bind \ to start :Ag command
 nnoremap \ :Ack!<Space>
-
-""" coc.nvim
-" Completion
-" Based on `:help coc-completion-example`
-" Use <tab> and <S-tab> to navigate completion list
-inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1): "\<Tab>"
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-" Use <CR> to confirm completion
-inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Map Ctrl-P to coc-lists
-"nnoremap <C-p> :CocList files<CR>
-
-" Reduce delay until floating diagnostic windows are shown
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-let mapleader = ","
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>rf <Plug>(coc-refactor)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Hover
-nmap <leader>h :call CocActionAsync('doHover')<CR>
 
 """ Splitjoin
 " Treat .js files as JSX, mainly so splitjoin works with JSX inside .js files
@@ -102,3 +74,10 @@ let g:bufExplorerSplitOutPathName=0  " Don't split the path and file name.
 """ vim-polyglot
 " Disable vim-json's concealing for performance
 let g:vim_json_syntax_conceal = 0
+
+""" formatter.nvim
+" Automatically format on save for JS/TS files
+"augroup FormatAutogroup
+  "autocmd!
+  "autocmd BufWritePost *.ts,*.tsx,*.js,*.jsx FormatWrite
+"augroup END

@@ -26,7 +26,8 @@ endfunction
 command! -nargs=0 CloseOldBuffers call s:Close(g:nb_buffers_to_keep)
 command! -nargs=1 CloseOldBuffers call s:Close(<args>)
 " Automatically close old buffers when opening a new buffer
-augroup CloseOldBuffers
-  au!
-  au BufNew * call s:Close(g:nb_buffers_to_keep)
-augroup END
+" This sometimes causes weird issues with missing buffers
+"augroup CloseOldBuffers
+  "au!
+  "au BufNew * call s:Close(g:nb_buffers_to_keep)
+"augroup END

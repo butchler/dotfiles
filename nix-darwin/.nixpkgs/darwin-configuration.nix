@@ -38,7 +38,7 @@
       ruby
       rubocop
       phraseapp_updater
-      lorri
+      #lorri
       #cloc
       #qpdf
       #xpdf
@@ -71,6 +71,7 @@
 
   nix.nixPath = [
     "nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs" # NixOS/nix#1865
+    "darwin-config=$HOME/.nixpkgs/darwin-configuration.nix"
   ];
 
   nixpkgs.config = import ./config.nix;
