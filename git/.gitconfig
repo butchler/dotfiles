@@ -20,6 +20,7 @@
   ri = rebase -i origin/HEAD
   rc = rebase --continue
   ra = rebase --abort
+  r1 = reset --hard HEAD~1
 [push]
   default = current
 [core]

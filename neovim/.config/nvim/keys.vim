@@ -21,11 +21,8 @@ nnoremap <CR> o<Esc>
 " Return the enter key to its normal functionality (opening the file) when in
 " the quickfix window.
 autocmd FileType qf nnoremap <buffer> <CR> <CR>
-"autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-nnoremap <Space> i<Space><Esc>
 
-" Open terminal in current file's directory
-nnoremap <leader><CR> :lcd %:p:h<CR>:vs<CR>:terminal<CR>
+nnoremap <Space> i<Space><Esc>
 
 " Escape to normal mode in terminal splits
 tnoremap <Esc> <C-\><C-n>
@@ -44,10 +41,7 @@ command Wq wq
 command Q q
 
 " Clear highlights and close quickfix
-"nnoremap <C-c> :noh<CR>
 nnoremap <Esc> :noh<CR>:cclose<CR>
-" Work around TypeScript type error signs getting stuck for some reason
-"nnoremap <Esc> :noh<CR>:sign unplace *<CR>
 
 " ,o to open quickfix and return focus to current window
 nnoremap <leader>o :botright copen<CR><C-w>p
@@ -68,30 +62,20 @@ nnoremap <leader>cp :let @* = expand("%")<CR>
 
 """ Fugitive
 " Load commits that touched current file into quickfix window
-command Ghistory Git log -- %
+command GHistory Git log -- %
 
 " Open status window on left side
 nnoremap <leader>gs :Git<CR><C-w>H
 
-" Make all windows same size
-nnoremap <leader>= <C-w>=
-
 " Open location list
 nnoremap <leader>l :lopen<CR>
 
-" Search for uppercase characters
-nnoremap <leader>u /\u<CR>
-
 nnoremap <leader>e :Explore<CR>
-"nnoremap <leader>e :e .<CR>
-
-command! -nargs=1 S :s/<args>\+/\0\r/g
 
 nmap ; :
 
 " Start tmux sessions in terminals
 command! -nargs=1 Term :call termopen("tmux new-session -s '<args>' -A") | file 'TMUX:<args>'
-"command! Tmux :call termopen("tmux")
 
 " Commands to turn text wrapping on/off
 command Wrap set textwidth=0 | set wrap
@@ -105,8 +89,7 @@ nnoremap <leader>f :FormatWrite<CR>
 nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 
-" Based on https://www.reddit.com/r/vim/comments/7dv9as/how_to_edit_the_vim_quickfix_list/
-command SetQuickFix setlocal errorformat=%f\|%l\ col\ %c\|%m | cgetbuffer
-command SetQuickFixFilesOnly setlocal errorformat=%f | cgetbuffer
-command SetQuickFixLinesOnly setlocal errorformat=%f:%l | cgetbuffer
-"command SetQuickFixLinesSelection setlocal errorformat=%f:%l | '<,'>cgetbuffer
+command Tsc setlocal makeprg=yarn\ typecheck:native\ --pretty\ false | make
+
+" Takes current word under cursor and makes it into a React function component
+command! ReactFunc normal! yiwiconst <esc>ea: React.FC<{ }> = ({ }) => {<cr>return (<cr>);<cr>};<esc>

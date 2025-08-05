@@ -2,10 +2,10 @@
 
 {
   # Configure custom Darwin modules (service configuration).
-  imports = [
-    <iknow/darwin-modules>
-    ((builtins.getEnv "HOME") + "/code/eikaiwa_content/nix/darwin-config.nix")
-  ];
+  #imports = [
+    #<iknow/darwin-modules>
+    #((builtins.getEnv "HOME") + "/code/eikaiwa_content/nix/darwin-config.nix")
+  #];
 
   # Configure packages to be installed. Packages can be searched by name with:
   # $ nix-env -qaP | grep <packagename>
@@ -37,7 +37,7 @@
       bundix
       ruby
       rubocop
-      phraseapp_updater
+      #phraseapp_updater
       #lorri
       #cloc
       #qpdf
@@ -45,14 +45,13 @@
       alacritty
       stow
       watchman
+      claude-code
     ];
 
   # Use a custom configuration.nix location. Switch to new location by running once
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.nixpkgs/darwin-configuration.nix
-  environment.darwinConfig = "$HOME/.nixpkgs/darwin-configuration.nix";
+  # $ darwin-rebuild switch -I darwin-config=/Users/adambuechler/.nixpkgs/darwin-configuration.nix
+  environment.darwinConfig = "/Users/adambuechler/.nixpkgs/darwin-configuration.nix";
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   nix.package = pkgs.nix;
 
   # Create /etc/bashrc that loads the nix-darwin environment.
@@ -70,8 +69,8 @@
   nix.settings.cores = 0;
 
   nix.nixPath = [
-    "nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs" # NixOS/nix#1865
-    "darwin-config=$HOME/.nixpkgs/darwin-configuration.nix"
+    "nixpkgs=/Users/adambuechler/.nix-defexpr/channels/nixpkgs" # NixOS/nix#1865
+    "darwin-config=/Users/adambuechler/.nixpkgs/darwin-configuration.nix"
   ];
 
   nixpkgs.config = import ./config.nix;
@@ -80,6 +79,8 @@
 
   # Use neovim as default editor
   environment.variables.EDITOR = "nvim";
+  # Use explicit TERM because alacritty is not well known
+  environment.variables.TERM = "xterm-256color";
 
   # Local DNS server for testing local frontend on mobile devices:
   # https://github.com/iknow/wiki/wiki/Setting-up-dnsmasq-to-access-dev-environment-from-other-devices

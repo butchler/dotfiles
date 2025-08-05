@@ -5,23 +5,21 @@
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'scrooloose/nerdcommenter'
-"Plug 'tpope/vim-unimpaired'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
-Plug 'jlanzarotta/bufexplorer'
+"Plug 'jlanzarotta/bufexplorer'
 Plug 'sheerun/vim-polyglot'
-"Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-tsserver coc-eslint coc-lists' }
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mhartington/formatter.nvim'
-Plug 'lbrayner/vim-rzip'
+"Plug 'lbrayner/vim-rzip'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -64,20 +62,41 @@ augroup filetype_jsx
   autocmd FileType javascript set filetype=javascriptreact
 augroup END
 
+augroup filetype_splitjoin
+  autocmd!
+
+  " Move SplitFunction to bottom of callback list for splitjoin, because it's
+  " almost never what I want.
+  autocmd FileType javascript,typescript let b:splitjoin_split_callbacks = [
+      \ 'sj#js#SplitObjectLiteral',
+      \ 'sj#js#SplitFatArrowFunction',
+      \ 'sj#js#SplitArray',
+      \ 'sj#js#SplitOneLineIf',
+      \ 'sj#js#SplitArgs',
+      \ 'sj#js#SplitFunction',
+      \ ]
+
+  autocmd FileType javascriptreact,typescriptreact let b:splitjoin_split_callbacks = [
+      \ 'sj#jsx#SplitJsxExpression',
+      \ 'sj#html#SplitTags',
+      \ 'sj#html#SplitAttributes',
+      \ 'sj#js#SplitObjectLiteral',
+      \ 'sj#js#SplitFatArrowFunction',
+      \ 'sj#js#SplitArray',
+      \ 'sj#js#SplitOneLineIf',
+      \ 'sj#js#SplitArgs',
+      \ 'sj#jsx#SplitSelfClosingTag',
+      \ 'sj#js#SplitFunction',
+      \ ]
+augroup END
+
 let g:splitjoin_html_attributes_bracket_on_new_line=1
 let g:splitjoin_trailing_comma=1
 
 """ BufExplorer
-let g:bufExplorerShowRelativePath=1  " Show relative paths.
-let g:bufExplorerSplitOutPathName=0  " Don't split the path and file name.
+"let g:bufExplorerShowRelativePath=1  " Show relative paths.
+"let g:bufExplorerSplitOutPathName=0  " Don't split the path and file name.
 
 """ vim-polyglot
 " Disable vim-json's concealing for performance
 let g:vim_json_syntax_conceal = 0
-
-""" formatter.nvim
-" Automatically format on save for JS/TS files
-"augroup FormatAutogroup
-  "autocmd!
-  "autocmd BufWritePost *.ts,*.tsx,*.js,*.jsx FormatWrite
-"augroup END
