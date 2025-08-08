@@ -4,19 +4,23 @@
 "       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdcommenter'
+Plug 'echasnovski/mini.comment', { 'branch': 'stable' }
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'AndrewRadev/splitjoin.vim'
+"Plug 'AndrewRadev/splitjoin.vim'
+Plug 'echasnovski/mini.splitjoin', { 'branch': 'stable' }
 "Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
+Plug 'echasnovski/mini.surround', { 'branch': 'stable' }
 "Plug 'jlanzarotta/bufexplorer'
 Plug 'sheerun/vim-polyglot'
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'mileszs/ack.vim'
-Plug 'junegunn/fzf'
+"Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mhartington/formatter.nvim'
 "Plug 'lbrayner/vim-rzip'
@@ -26,6 +30,13 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+
+" Supports replacing functions/function arguments/etc. with motion commands
+Plug 'echasnovski/mini.ai', { 'branch': 'stable' }
+" Extends f/t to search across multiple lines
+Plug 'echasnovski/mini.jump', { 'branch': 'stable' }
+" Installed just because it shows the LSP progress
+Plug 'echasnovski/mini.notify', { 'branch': 'stable' }
 
 call plug#end()
 
@@ -50,8 +61,8 @@ endif
 " bind K to grep word under cursor, case-sensitive
 nnoremap K :Ack! -w "<C-r><C-w>"<CR>
 " Same as above, but using visual selection.
-" Also does not automatically search, to allow the query to be altered.
-vnoremap K y:Ack! <C-r>"
+" Also wraps in quotes and does not automatically search, to allow the query to be altered.
+vnoremap K y:Ack! '<C-r>"'
 " bind \ to start :Ag command
 nnoremap \ :Ack!<Space>
 

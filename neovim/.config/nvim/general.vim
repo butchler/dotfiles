@@ -156,15 +156,12 @@ endfunction
 "
 " 1. Match output of `tsc --noEmit --pretty false`. Based on https://www.reddit.com/r/vim/comments/7dv9as/how_to_edit_the_vim_quickfix_list/
 " 2. Match the format of quickfix window entries, for manually pruning entries
-" 3. Catchall telling vim to ignore any lines which don't match any previous patterns
+" 3. Match plain list of files
+" 4. Catchall telling vim to ignore any lines which don't match any previous patterns
 set errorformat+=%f(%l\\,%c):\ %m
 set errorformat+=%f\|%l\ col\ %c\|%m
+set errorformat+=%f
 set errorformat+=%-G%.%#
-"set! errorformat=%f(%l\\,%c):\ %m,%f\|%l\ col\ %c\|%m,%-G%.%#
-
-" These can be used to add a plain list of files (or files and line numbers) to the quickfix window
-"setlocal errorformat+=%f:%l
-"setlocal errorformat+=%f
 
 " Uses the current selected range of lines, or uses the entire buffer if no range is selected.
 command -range=% SetQuickfix cgetexpr getline(<line1>, <line2>)

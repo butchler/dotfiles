@@ -93,3 +93,6 @@ command Tsc setlocal makeprg=yarn\ typecheck:native\ --pretty\ false | make
 
 " Takes current word under cursor and makes it into a React function component
 command! ReactFunc normal! yiwiconst <esc>ea: React.FC<{ }> = ({ }) => {<cr>return (<cr>);<cr>};<esc>
+
+" Add closing JSX tag
+nnoremap <leader>t yi<f>a</<esc>pa><esc>F>a
